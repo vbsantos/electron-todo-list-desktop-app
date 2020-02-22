@@ -1,0 +1,79 @@
+{
+  "name": "desktop-app-todo-list",
+  "version": "1.1.0",
+  "description": "Todo-list offline app with reactjs and database",
+  "repository": "https://github.com/vbsantos/desktop-app-todo-list",
+  "author": "Vinícius Bohrer <vbsanttos@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "main": "public/electron.js",
+  "homepage": "./",
+  "build": {
+    "appId": "com.todolist.electron-cra",
+    "productName": "Todo List",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "vbsantos",
+        "repo": "https://github.com/vbsantos/desktop-app-todo-list"
+      }
+    ],
+    "files": [
+      "build/**/*",
+      "config/*",
+      "controllers/*",
+      "migrations/*",
+      "models/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "scripts": {
+    "start": "concurrently \"BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "dist-windows": "yarn react-build && electron-builder -w --ia32 exe",
+    "dist-macos": "yarn react-build && electron-builder -m tar.gz",
+    "dist-linux": "yarn react-build && electron-builder -l deb",
+    "publish": "electron-builder --win --ia32 -p always"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "electron-is-dev": "^1.1.0",
+    "electron-log": "^4.0.3",
+    "electron-updater": "^4.2.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.1",
+    "sequelize": "^5.21.3",
+    "sqlite3": "^4.1.1",
+    "umzug": "^2.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "electron": "^7.0.0",
+    "electron-builder": "^22.3.2",
+    "sequelize-cli": "^5.5.1",
+    "wait-on": "^4.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
